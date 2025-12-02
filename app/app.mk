@@ -1,17 +1,25 @@
-app-terminal:
+web-terminal:
 	${CE} run --rm -it \
-	  --name app-terminal \
-	  --volume ./app/:/srv/app:Z \
-	  --workdir /srv/app \
+	  --name web-terminal \
+	  --volume ./app/web/:/srv/web:Z \
+	  --workdir /srv/web \
 	  docker.io/library/node:25-alpine \
 	  sh
 
-app-dev:
+web-init:
 	${CE} run --rm -it \
-	  --name app-dev \
-	  --volume ./app/web/:/srv/app/web:Z \
-	  --workdir /srv/app/web \
-	  --publish 5173:5173 \
+	  --name web-terminal \
+	  --volume ./app/web/:/srv/web:Z \
+	  --workdir /srv/web \
+	  docker.io/library/node:25-alpine \
+	  npm install
+
+web-dev:
+	${CE} run --rm -it \
+	  --name web-dev \
+	  --volume ./app/web/:/srv/web:Z \
+	  --workdir /srv/web \
+	  --network=host \
 	  docker.io/library/node:25-alpine \
 	  npm run dev
 
