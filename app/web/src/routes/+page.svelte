@@ -1,5 +1,12 @@
-<center><h1>GardenGnome</h1></center>
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col-4">
+      <h1>Dashboard</h1>
+    </div>
+  </div>
+  <br />
+  <div class="row">
 
-<p>Visit <a href="https://svelte.dev/docs/kit">svelte.dev/docs/kit</a> to read the documentation</p>
-
-<button class="btn btn-primary">Primary button</button>
+  </div>
+</div>

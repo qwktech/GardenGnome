@@ -1,0 +1,93 @@
+<script>
+  let { pageName, formInputs } = $props();
+
+  // derive itemName from pageName
+  const regex = /\b\w+(s|es|ies)\b/g;
+  let itemName = $derived(pageName.replace(regex, (match) => {
+    if (match.endsWith("ies")) {
+      return match.slice(0, -3) + "y"; // e.g., libraries -> library
+    } else if (match.endsWith("es")) {
+      return match.slice(0, -2); // e.g., boxes -> box
+    } else if (match.endsWith("s") && match.length > 1) {
+      return match.slice(0, -1); // e.g., cats -> cat
+    }
+    return match; // Return the original word if not plural
+  }));
+
+  /*let formCols = $derived(
+    for(const input in formInputs) {
+      
+    }
+  );*/
+</script>
+
+{#snippet fromCol(colData)}
+  <div class="col">
+    <label for={colData.id} class="form-label">{colData.label}</label>
+    {#if colData.type == "form-control"}
+      <input id={colData.id} class={colData.type}>
+    {:else if colData.type == "file"}
+      <input id={colData.id} class="form-control" type={colData.type}>
+    {:else if colData.type == "form-select"}
+      <select id={colData.id} class={colData.type}>
+      <option selected></option>
+      {#each colData.options as option}
+        <option value={option}>{option}</option>
+      {/each}
+      </select>
+    {/if}
+  </div>
+{/snippet}
+
+<!-- Button trigger add item modal -->
+<button 
+  type="button" 
+  class="btn btn-primary" 
+  data-bs-toggle="modal" 
+  data-bs-target="#addItemModal"
+  >
+  Add {itemName}
+</button>
+
+<!-- Add item modal -->
+<div 
+  class="modal fade" 
+  id="addItemModal" 
+  tabindex="-1" 
+  aria-labelledby="addItemModal"
+  aria-hidden="true"
+  >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title fs-5" id="exampleModalLabel">Add a {itemName}</h2>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          ></button>
+      </div>
+      <div class="modal-body">
+        <div id="liveAlertPlaceholder"></div>
+        <div class="container"> 
+          <form>
+            <div class="row row-cols-1">
+              {#each formInputs as colData}
+                {@render fromCol(colData)}
+              {/each}
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-4">
+                <button type="button" class="btn btn-primary" id="addItemButton">Add</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

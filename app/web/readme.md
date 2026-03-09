@@ -1,6 +1,6 @@
 # GardenGnome Website
 
-The front end to the GardenGnome webapp built in svelte.
+The front end to the GardenGnome webapp built in svelte using Bootstrap components.
 
 ## Dev Instructions
 
