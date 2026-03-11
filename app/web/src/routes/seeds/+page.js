@@ -1,3 +1,5 @@
+import { error } from '@sveltejs/kit';
+
 export async function load() {
   const pageName = "Seeds";
   const formInputs = [

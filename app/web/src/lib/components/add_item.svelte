@@ -1,24 +1,5 @@
 <script>
-  let { pageName, formInputs } = $props();
-
-  // derive itemName from pageName
-  const regex = /\b\w+(s|es|ies)\b/g;
-  let itemName = $derived(pageName.replace(regex, (match) => {
-    if (match.endsWith("ies")) {
-      return match.slice(0, -3) + "y"; // e.g., libraries -> library
-    } else if (match.endsWith("es")) {
-      return match.slice(0, -2); // e.g., boxes -> box
-    } else if (match.endsWith("s") && match.length > 1) {
-      return match.slice(0, -1); // e.g., cats -> cat
-    }
-    return match; // Return the original word if not plural
-  }));
-
-  /*let formCols = $derived(
-    for(const input in formInputs) {
-      
-    }
-  );*/
+  let { pageName, itemName, formInputs } = $props();
 </script>
 
 {#snippet fromCol(colData)}
